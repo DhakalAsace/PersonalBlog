@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Blog Posts";
+}
+@model IEnumerable< Blog.Models.BlogPost>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Blog Posts List</h2>
+    <div>
+        <a class="btn btn-primary" asp-area="Admin" asp-controller="Home" asp-action="Index">Admin Home</a>
+        <a class="btn btn-success ml-2" asp-area="Admin" asp-controller="Home" asp-action="BlogCreate">Create Blog</a>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Author</th>
+            <th>Date</th>
+            <th>Comments</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var blogPost in Model)
+        {
+            <tr>
+                <td>@blogPost.BlogPostId</td>
+                <td>@blogPost.BlogPostTitle</td>
+                <td>@Html.Raw(string.Join(" ", blogPost.BlogPostDescription.Split(' ').Take(5)))</td>
+                <td>@blogPost.BlogPostAuthor</td>
+                <td>@blogPost.BlogPostDate.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                <td>@(blogPost.Comments?.Count ?? 0)</td>
+                <td><a class="btn btn-warning ml-2" asp-area="Admin" asp-controller="Home" asp-action="BlogEdit" asp-route-id="@blogPost.BlogPostId">Edit</a></td>
+                <td><a class="btn btn-danger ml-2" asp-area="Admin" asp-controller="Home" asp-action="BlogDelete" asp-route-id="@blogPost.BlogPostId">Delete</a></td>
+
+            </tr>
+        }
+    </tbody>
+</table>

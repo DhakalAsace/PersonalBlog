@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Blog.Models.BlogPost>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<div class="container mt-4">
+    <h1>@ViewData["Title"]</h1>
+    <div class="row">
+        @foreach (var blogPost in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@blogPost.BlogPostTitle</h5>
+                        <p class="card-text">@Html.Raw(blogPost.BlogPostDescription.Split('.')[0])</p>
+                        <a href="@Url.Action("BlogDetails", "Home", new { id = blogPost.BlogPostId })" class="btn btn-primary">Read More</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
